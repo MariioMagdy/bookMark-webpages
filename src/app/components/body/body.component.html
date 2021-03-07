@@ -1,0 +1,33 @@
+<div class="container p-5">
+  <form #userForm="ngForm" class="p-5 bg-dark text-white">
+    <div>
+      <h1>BookMark WebPages</h1>
+    </div>
+    <div class="mb-3">
+      <label for="webname" class="form-label">Website Name</label>
+      <input type="text" class="form-control"  aria-describedby="emailHelp" name="webname" [(ngModel)]="Obj.webname" #name="ngModel">
+    </div>
+    <div class="mb-3">
+      <label for="url" class="form-label">URL</label>
+      <input type="url" class="form-control" name="url"  aria-describedby="emailHelp" [(ngModel)]="Obj.url" #url="ngModel" required [pattern]="pattern" placeholder="https://example.com"  >
+    </div>
+    <div *ngIf="url?.invalid && (url.dirty || url.touched)"
+    class="alert alert-danger">
+
+    <div *ngIf="url.errors?.required">
+      URL Required.
+    </div>
+    <div *ngIf="url.errors?.pattern">
+      Write valid URL.
+    </div>
+  </div>
+
+
+    <button *ngIf="!isEdit" type="submit" class="btn btn-primary" (click)="addUser(userForm)" [disabled]="userForm.invalid">Submit</button>
+    <button *ngIf="isEdit" class="btn btn-primary" (click)="updateUser(userForm)">Update</button>
+  </form>
+</div>
+
+<hr/>
+<app-user  (sendtoParent)="recevieUser($event)"></app-user>
+
